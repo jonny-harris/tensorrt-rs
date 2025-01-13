@@ -177,5 +177,5 @@ nvinfer1::ICudaEngine *build_cuda_engine(nvinfer1::IBuilder *builder, nvinfer1::
 }
 
 void builder_reset(nvinfer1::IBuilder* builder, nvinfer1::INetworkDefinition* network) {
-    builder->reset(*network);
+    builder->reset();
 }
