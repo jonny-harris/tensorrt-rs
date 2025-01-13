@@ -172,9 +172,11 @@ nvinfer1::INetworkDefinition *create_network_v2(nvinfer1::IBuilder *builder, uin
 }
 #endif
 
-nvinfer1::ICudaEngine *build_cuda_engine(nvinfer1::IBuilder *builder, nvinfer1::INetworkDefinition *network) {
-    return builder->buildCudaEngine(*network);
+nvinfer1::ICudaEngine* build_cuda_engine(nvinfer1::IBuilder* builder, nvinfer1::INetworkDefinition* network, nvinfer1::IBuilderConfig* config) {
+    // Use buildEngineWithConfig to create the engine with a configuration
+    return builder->buildEngineWithConfig(*network, *config);
 }
+
 
 void builder_reset(nvinfer1::IBuilder* builder, nvinfer1::INetworkDefinition* network) {
     builder->reset();
