@@ -1,6 +1,3 @@
-//
-// Created by mason on 11/27/19.
-//
 #include <memory>
 #include <NvInfer.h>
 #include <NvInferPlugin.h>
@@ -56,7 +53,7 @@ int builder_get_average_find_iterations(nvinfer1::IBuilder* builder) {
     return builder->getAverageFindIterations();
 }
 
-bool builder_platform_has_fast_fp16(nvinfer1::IBuilder* builder){
+bool builder_platform_has_fast_fp16(nvinfer1::IBuilder* builder) {
     return builder->platformHasFastFp16();
 }
 
@@ -101,7 +98,7 @@ DeviceType_t builder_get_default_device_type(nvinfer1::IBuilder *builder) {
 }
 
 void builder_reset_device_type(nvinfer1::IBuilder* builder, nvinfer1::ILayer* layer) {
-   builder->resetDeviceType(layer);
+    builder->resetDeviceType(layer);
 }
 
 bool builder_can_run_on_dla(nvinfer1::IBuilder* builder, nvinfer1::ILayer* layer) {
@@ -152,38 +149,30 @@ EngineCapabiliy_t builder_get_engine_capability(nvinfer1::IBuilder* builder) {
     return static_cast<EngineCapabiliy_t>(builder->getEngineCapability());
 }
 
-nvinfer1::IBuilder *create_infer_builder(Logger_t *logger) {
+nvinfer1::IBuilder* create_infer_builder(Logger_t* logger) {
     initLibNvInferPlugins(&logger->getLogger(), "");
     return nvinfer1::createInferBuilder(logger->getLogger());
 }
-
 
 void destroy_builder(nvinfer1::IBuilder* builder) {
     builder->destroy();
 }
 
-#if defined(TRT6) || defined(TRT7)
-nvinfer1::INetworkDefinition *create_network_v2(nvinfer1::IBuilder *builder, uint32_t flags) {
+nvinfer1::INetworkDefinition* create_network_v2(nvinfer1::IBuilder* builder, uint32_t flags) {
     return builder->createNetworkV2(flags);
 }
-#else
-nvinfer1::INetworkDefinition *create_network(nvinfer1::IBuilder *builder) {
-    return builder->createNetwork();
-}
-#endif
 
 nvinfer1::ICudaEngine* build_cuda_engine(nvinfer1::IBuilder* builder, nvinfer1::INetworkDefinition* network, nvinfer1::IBuilderConfig* config) {
-    // First, build the serialized network
+    // Use TensorRT 8 function to build the engine
     nvinfer1::IHostMemory* serializedModel = builder->buildSerializedNetwork(*network, *config);
-    
+
     if (serializedModel == nullptr) {
         return nullptr;  // Handle failure
     }
 
-    // Then, deserialize the network into a CUDA engine
+    // Deserialize the network into a CUDA engine
     return builder->createCudaEngine(*serializedModel);
 }
-
 
 void builder_reset(nvinfer1::IBuilder* builder, nvinfer1::INetworkDefinition* network) {
     builder->reset(*network);
