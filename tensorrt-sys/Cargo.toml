@@ -5,15 +5,11 @@ authors = ["Mason Stallmo <masonstallmo@gmail.com>"]
 license = "MIT"
 edition = "2018"
 build = "build.rs"
-repository = "https://github.com/mstallmo/tensorrt-rs"
+repository = "https://github.com/jonny-harris/tensorrt-rs"
 description = "Low level wrapper around Nvidia's TensorRT library"
 
 [features]
 default = []
-
-trt-5 = []
-
-trt-6 = []
 
 trt-7 = []
 

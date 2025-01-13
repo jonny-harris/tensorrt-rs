@@ -3,7 +3,7 @@ name = "tensorrt-rs"
 version = "0.4.0"
 authors = ["Mason Stallmo <masonstallmo@gmail.com>"]
 license = "MIT"
-repository = "https://github.com/mstallmo/tensorrt-rs"
+repository = "https://github.com/jonny-harris/tensorrt-rs"
 edition = "2018"
 description = "Rust library for using Nvidia's TensorRT deep learning acceleration library"
 
@@ -20,9 +20,9 @@ trt-7 = ["tensorrt-sys/trt-7"]
 [dependencies]
 # Uncomment when working locally
 #tensorrt-sys = { path = "../tensorrt-sys" }
-tensorrt-sys = { git = "https://github.com/mstallmo/tensorrt-rs", branch = "develop" }
+tensorrt-sys = { git = "https://github.com/jonny-harris/tensorrt-rs", branch = "develop" }
 #tensorrt_rs_derive = { path = "../tensorrt_rs_derive" }
-tensorrt_rs_derive = { git = "https://github.com/mstallmo/tensorrt-rs", branch = "develop" }
+tensorrt_rs_derive = { git = "https://github.com/jonny-harris/tensorrt-rs", branch = "develop" }
 ndarray = "0.13"
 ndarray-image = "0.2"
 image = "0.23"

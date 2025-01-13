@@ -27,7 +27,7 @@ This example uses the MNIST digit dataset and classifies images of hand drawn di
 the numbers 0..9 and will have an associated floating point value that indicates what digit the model identified. 
 
 For more information about this example see: 
-[TensorRT MNIST Sample](https://github.com/mstallmo/TensorRT/tree/master/samples/opensource/sampleUffMNIST)
+[TensorRT MNIST Sample](https://github.com/jonny-harris/TensorRT/tree/master/samples/opensource/sampleUffMNIST)
 
 ### Run
 ```shell script
@@ -41,7 +41,7 @@ specifically the NMS (non-max suppression) plugin.
 
 To properly map the operations in the UFF graph to the appropriate TensorRT plugin there is a small preprocessing step 
 that needs to be done to the model before it can be loaded by TensorRT in the example. The details can be found in the 
-[TensorRT SSD Sample](https://github.com/mstallmo/TensorRT/tree/master/samples/opensource/sampleUffSSD#sampleuffssd-plugins)
+[TensorRT SSD Sample](https://github.com/jonny-harris/TensorRT/tree/master/samples/opensource/sampleUffSSD#sampleuffssd-plugins)
 
 The result of this pre-processing should be placed into the `assets` in the top level directory.
 

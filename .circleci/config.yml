@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build-trt5:
     docker:
-      - image: mstallmo/tensorrt-rs:0.4
+      - image: jonny-harris/tensorrt-rs:0.4
     steps:
       - checkout
       - run: cd tensorrt && cargo build --release --no-default-features --features "trt-5"
@@ -13,7 +13,7 @@ jobs:
             - project
   build-trt7:
     docker:
-      - image: mstallmo/tensorrt-rs:0.5
+      - image: jonny-harris/tensorrt-rs:0.5
     steps:
       - checkout
       - run: cd tensorrt && cargo build --release
@@ -23,7 +23,7 @@ jobs:
             - project
   test-tensorrt-sys:
     docker:
-      - image: mstallmo/tensorrt-rs:0.4
+      - image: jonny-harris/tensorrt-rs:0.4
     steps:
       - attach_workspace:
           at: /root

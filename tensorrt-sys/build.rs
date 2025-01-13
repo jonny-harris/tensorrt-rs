@@ -35,43 +35,23 @@ fn tensorrt_configuration() {
 fn main() -> Result<(), ()> {
     let mut cfg = Config::new("trt-sys");
 
-    #[cfg(feature = "trt-5")]
-    {
-        println!("Setting Config to TRT5");
-        cfg.define("TRT5", "");
-        let bindings = builder()
-            .clang_args(&["-x", "c++"])
-            .header("trt-sys/tensorrt_api.h")
-            .size_t_is_usize(true)
-            .generate()?;
-
-        bindings.write_to_file("src/bindings.rs").unwrap();
-    }
-
-    #[cfg(feature = "trt-6")]
-    {
-        println!("Setting Config to TRT6");
-        cfg.define("TRT6", "");
-        let bindings = builder()
-            .clang_arg("-DTRT6")
-            .clang_args(&["-x", "c++"])
-            .header("trt-sys/tensorrt_api.h")
-            .size_t_is_usize(true)
-            .generate()?;
-
-        bindings.write_to_file("src/bindings.rs").unwrap();
-    }
-
     #[cfg(feature = "trt-7")]
     {
         println!("Setting Config to TRT7");
         cfg.define("TRT7", "");
         let bindings = builder()
-            .clang_arg("-DTRT7")
-            .clang_args(&["-x", "c++"])
-            .header("trt-sys/tensorrt_api.h")
-            .size_t_is_usize(true)
-            .generate()?;
+        .clang_args(&[
+            "-x", "c++",
+            "-I/usr/include/c++/11", 
+            "-I/usr/include/c++/v1", 
+            "-I/usr/include/aarch64-linux-gnu/c++/11", 
+            "-I/usr/include/aarch64-unknown-linux-gnu/c++/v1/",
+            "-I/usr/local/cuda-12.2/targets/aarch64-linux/include", // CUDA include path
+            "-I/path/to/tensorrt/include", // Add this line for TensorRT headers
+        ])
+        .header("trt-sys/tensorrt_api.h")
+        .size_t_is_usize(true)
+        .generate()?;
 
         bindings.write_to_file("src/bindings.rs").unwrap();
     }
