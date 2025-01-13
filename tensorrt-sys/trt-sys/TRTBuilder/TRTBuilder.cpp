@@ -167,8 +167,8 @@ nvinfer1::INetworkDefinition *create_network_v2(nvinfer1::IBuilder *builder, uin
     return builder->createNetworkV2(flags);
 }
 #else
-nvinfer1::INetworkDefinition *create_network(nvinfer1::IBuilder *builder) {
-    return builder->createNetwork();
+nvinfer1::INetworkDefinition *create_network_v2(nvinfer1::IBuilder *builder, uint32_t flags) {
+    return builder->createNetworkV2(flags);
 }
 #endif
 
