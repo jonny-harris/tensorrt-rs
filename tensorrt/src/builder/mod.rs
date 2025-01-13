@@ -10,10 +10,6 @@ use crate::runtime::Logger;
 use num_derive::FromPrimitive;
 use num_traits::FromPrimitive;
 use std::os::raw::c_int;
-#[cfg(feature = "trt-5")]
-use tensorrt_sys::create_network;
-#[cfg(not(feature = "trt-5"))]
-use tensorrt_sys::create_network_v2;
 
 use tensorrt_sys::{
     build_cuda_engine, builder_allow_gpu_fallback, builder_can_run_on_dla,
@@ -224,17 +220,7 @@ impl<'a> Builder<'a> {
         FromPrimitive::from_i32(primitive).unwrap()
     }
 
-    #[cfg(feature = "trt-5")]
-    pub fn create_network(&self) -> Network {
-        let internal_network = unsafe { create_network(self.internal_builder) };
-        Network { internal_network }
-    }
 
-    #[cfg(not(feature = "trt-5"))]
-    pub fn create_network_v2(&self, flags: NetworkBuildFlags) -> Network {
-        let internal_network = unsafe { create_network_v2(self.internal_builder, flags.bits()) };
-        Network { internal_network }
-    }
 
     pub fn build_cuda_engine(&self, network: &Network) -> Engine {
         let internal_engine =

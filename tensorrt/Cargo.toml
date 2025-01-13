@@ -10,10 +10,6 @@ description = "Rust library for using Nvidia's TensorRT deep learning accelerati
 [features]
 default = ["trt-7"]
 
-trt-5 = ["tensorrt-sys/trt-5"]
-
-trt-6 = ["tensorrt-sys/trt-6"]
-
 trt-7 = ["tensorrt-sys/trt-7"]
 
 
