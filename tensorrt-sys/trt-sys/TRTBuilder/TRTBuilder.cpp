@@ -167,17 +167,24 @@ nvinfer1::INetworkDefinition *create_network_v2(nvinfer1::IBuilder *builder, uin
     return builder->createNetworkV2(flags);
 }
 #else
-nvinfer1::INetworkDefinition *create_network_v2(nvinfer1::IBuilder *builder, uint32_t flags) {
-    return builder->createNetworkV2(flags);
+nvinfer1::INetworkDefinition *create_network(nvinfer1::IBuilder *builder) {
+    return builder->createNetwork();
 }
 #endif
 
 nvinfer1::ICudaEngine* build_cuda_engine(nvinfer1::IBuilder* builder, nvinfer1::INetworkDefinition* network, nvinfer1::IBuilderConfig* config) {
-    // Use buildEngineWithConfig to create the engine with a configuration
-    return builder->buildEngineWithConfig(*network, *config);
+    // First, build the serialized network
+    nvinfer1::IHostMemory* serializedModel = builder->buildSerializedNetwork(*network, *config);
+    
+    if (serializedModel == nullptr) {
+        return nullptr;  // Handle failure
+    }
+
+    // Then, deserialize the network into a CUDA engine
+    return builder->createCudaEngine(*serializedModel);
 }
 
 
 void builder_reset(nvinfer1::IBuilder* builder, nvinfer1::INetworkDefinition* network) {
-    builder->reset();
+    builder->reset(*network);
 }
