@@ -173,7 +173,7 @@ nvinfer1::INetworkDefinition *create_network_v2(nvinfer1::IBuilder *builder, uin
 #endif
 
 nvinfer1::ICudaEngine *build_cuda_engine(nvinfer1::IBuilder *builder, nvinfer1::INetworkDefinition *network) {
-    return builder->buildCudaEngineV2(*network);
+    return builder->buildCudaEngine(*network);
 }
 
 void builder_reset(nvinfer1::IBuilder* builder, nvinfer1::INetworkDefinition* network) {
